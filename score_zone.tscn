@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://isg2si6p6ka1"]
+[gd_scene load_steps=2 format=3 uid="uid://isg2si6p6ka1"]
+
+[ext_resource type="Script" uid="uid://ixop01xavsf6" path="res://score_zone.gd" id="1_k42b3"]
 
 [node name="ScoreZone" type="Area3D"]
+script = ExtResource("1_k42b3")
