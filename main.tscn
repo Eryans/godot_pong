@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://caaf5w2sa0uvv"]
+[gd_scene load_steps=9 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://paddle.tscn" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://manager.gd" id="2_0xm2m"]
@@ -10,6 +10,11 @@ albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 size = Vector3(1, 1, 18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(1, 0.387183, 0.425103, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -27,12 +32,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 [node name="Paddle2" parent="." instance=ExtResource("1_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball")]
+[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball", "debug_mesh")]
 script = ExtResource("2_0xm2m")
 player = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 ai_speed = 0.25
+debug_mesh = NodePath("../DebugPoint")
 
 [node name="Ball" parent="." instance=ExtResource("3_h2yge")]
 
@@ -77,3 +83,7 @@ shape = SubResource("BoxShape3D_lquwl")
 [node name="CSGBox3D4" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.994895, 0)
 size = Vector3(1, 1, 16)
+
+[node name="DebugPoint" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1bvp3")
+surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")

@@ -22,10 +22,11 @@ func on_body_entered(body: Node3D) -> void:
 	if (body is Paddle):
 		var paddle: Paddle = body
 		var max_angle = deg_to_rad(75);
-		var offset = (global_position.z - paddle.position.z) / (paddle.get_width().size.z / 2);
+		var offset = (global_position.z - paddle.position.z) / (paddle.get_width() / 2);
 		offset = clamp(offset, -1, 1);
 		var angle = lerp(-max_angle, max_angle, (offset + 1) / 2);
 		direction = Vector2(cos(angle) * (1 if global_position.x - paddle.position.x > 0 else -1), sin(angle)).normalized();
+
 func reset() -> void:
 	global_position = Vector3.ZERO;
 	speed = base_speed;

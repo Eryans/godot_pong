@@ -5,8 +5,8 @@ extends CharacterBody3D
 @export var speed: float = 2.5;
 @export_range(.1, .99) var friction: float = .9;
 
-func get_width() -> AABB:
-	return $MeshInstance3D.get_aabb();
+func get_width() -> float:
+	return $MeshInstance3D.get_aabb().size.z;
 
 func _physics_process(_delta: float) -> void:
 	velocity.z += direction * speed;
