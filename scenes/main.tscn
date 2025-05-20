@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://caaf5w2sa0uvv"]
 
-[ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://paddle.tscn" id="1_h2yge"]
-[ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://manager.gd" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://ball.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://score_zone.tscn" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/manager.gd" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://entities/ball/ball.tscn" id="3_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://entities/score_zone/score_zone.tscn" id="4_tipki"]
+[ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
@@ -27,22 +27,22 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10,
 projection = 1
 size = 15.5
 
-[node name="Paddle" parent="." instance=ExtResource("1_h2yge")]
+[node name="Paddle" parent="." instance=ExtResource("1_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 
-[node name="Paddle2" parent="." instance=ExtResource("1_h2yge")]
+[node name="Paddle2" parent="." instance=ExtResource("1_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 tag = 1
 
 [node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player_paddle", "ai_paddle", "ball", "debug_mesh")]
-script = ExtResource("2_0xm2m")
+script = ExtResource("2_tefeu")
 player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 debug_mesh = NodePath("../DebugPoint")
 ai_speed = 0.75
 
-[node name="Ball" parent="." instance=ExtResource("3_h2yge")]
+[node name="Ball" parent="." instance=ExtResource("3_o6xl0")]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.03589)
@@ -70,13 +70,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 light_energy = 6.434
 omni_range = 22.813
 
-[node name="ScoreZone" parent="." instance=ExtResource("4_1bvp3")]
+[node name="ScoreZone" parent="." instance=ExtResource("4_tipki")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreZone"]
 shape = SubResource("BoxShape3D_lquwl")
 
-[node name="ScoreZone2" parent="." instance=ExtResource("4_1bvp3")]
+[node name="ScoreZone2" parent="." instance=ExtResource("4_tipki")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
 player_goal = 1
 
@@ -91,4 +91,4 @@ size = Vector3(1, 1, 16)
 mesh = SubResource("BoxMesh_1bvp3")
 surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
 
-[node name="UI" parent="." instance=ExtResource("5_lquwl")]
+[node name="UI" parent="." instance=ExtResource("5_85g3d")]
