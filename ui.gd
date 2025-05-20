@@ -7,8 +7,8 @@ func _ready() -> void:
 	EventManager.connect("goal", _on_goal);
 
 
-func _on_goal(goal_hit: EventManager.PlayerGoalEnum) -> void:
-	if (goal_hit == EventManager.PlayerGoalEnum.A):
+func _on_goal(goal_hit: EventManager.PlayerTagEnum) -> void:
+	if (goal_hit == EventManager.PlayerTagEnum.A):
 		GameGlobal.player_B_score += 1;
 		text_player_B_score.text = str(GameGlobal.player_B_score);
 	else:

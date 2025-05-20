@@ -32,14 +32,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 
 [node name="Paddle2" parent="." instance=ExtResource("1_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
+tag = 1
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball", "debug_mesh")]
+[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player_paddle", "ai_paddle", "ball", "debug_mesh")]
 script = ExtResource("2_0xm2m")
-player = NodePath("../Paddle")
+player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
-ai_speed = 0.25
 debug_mesh = NodePath("../DebugPoint")
+ai_speed = 0.75
 
 [node name="Ball" parent="." instance=ExtResource("3_h2yge")]
 

@@ -1,6 +1,6 @@
 extends Area3D
 
-@export var player_goal: EventManager.PlayerGoalEnum;
+@export var player_goal: EventManager.PlayerTagEnum;
 
 func _ready() -> void:
     area_entered.connect(on_area_entered);

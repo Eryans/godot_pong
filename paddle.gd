@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 @onready var direction: float = 0;
 @export var speed: float = 2.5;
+@export var tag: EventManager.PlayerTagEnum;
 @export_range(.1, .99) var friction: float = .9;
 
 func get_width() -> float:

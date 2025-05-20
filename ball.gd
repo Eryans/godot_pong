@@ -26,6 +26,7 @@ func on_body_entered(body: Node3D) -> void:
 		offset = clamp(offset, -1, 1);
 		var angle = lerp(-max_angle, max_angle, (offset + 1) / 2);
 		direction = Vector2(cos(angle) * (1 if global_position.x - paddle.position.x > 0 else -1), sin(angle)).normalized();
+		EventManager.ball_hitted_paddle_emit(paddle.tag);
 
 func reset() -> void:
 	global_position = Vector3.ZERO;
