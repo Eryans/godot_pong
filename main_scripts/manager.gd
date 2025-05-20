@@ -65,11 +65,13 @@ func choose_ai_attack_target() -> void:
 	var player_paddle_vector = Vector3(player_paddle.global_position.x, 0, 0)
 	match (rdm_int):
 		2: # random attack
-			_target = player_paddle_vector + Vector3.UP * rng.randi_range(-_arena_half_width, _arena_half_width);
+			_target = player_paddle_vector + Vector3(0, 0, 1) * rng.randi_range(-_arena_half_width, _arena_half_width);
 		3: # Aim for player contrary point
-			_target = player_paddle_vector + Vector3.UP * (-_arena_half_width if player_paddle.global_position.z > 0 else _arena_half_width);
+			_target = player_paddle_vector + Vector3(0, 0, 1) * (-_arena_half_width if player_paddle.global_position.z > 0 else _arena_half_width);
 		_, 1: # aim for center
 			_target = Vector3.ZERO;
+	debug_mesh.global_position = _target
+		
 
 func _on_think_timer_timeout() -> void:
 	_ai_can_move = true;
@@ -101,7 +103,6 @@ func _get_intersection_point(ball_pos: Vector3, ball_dir: Vector3, paddle_x: flo
 
 func _aim_to_target(target: Vector3) -> void:
 	var impact_point: Vector3 = _get_intersection_point(ball.global_position, Vector3(ball.direction.x, 0, ball.direction.y), ai_paddle.global_position.x)
-	debug_mesh.global_position = impact_point
 
 	var vector_to_target: Vector3 = target - impact_point
 	var angle_to_target: float = (vector_to_target.z) / (vector_to_target.x)
