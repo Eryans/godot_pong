@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://manager.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://ball.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://score_zone.tscn" id="4_1bvp3"]
-[ext_resource type="Theme" uid="uid://cg8dikk6e4ojf" path="res://ui_theme.tres" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui.tscn" id="5_lquwl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
@@ -33,16 +33,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 [node name="Paddle2" parent="." instance=ExtResource("1_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball", "debug_mesh", "text_player_A_score", "text_player_B_score")]
+[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball", "debug_mesh")]
 script = ExtResource("2_0xm2m")
 player = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 ai_speed = 0.25
 debug_mesh = NodePath("../DebugPoint")
-is_two_player_mode = true
-text_player_A_score = NodePath("../Control/Container/MarginContainer/ScoreA")
-text_player_B_score = NodePath("../Control/Container/MarginContainer2/ScoreB")
 
 [node name="Ball" parent="." instance=ExtResource("3_h2yge")]
 
@@ -93,47 +90,4 @@ size = Vector3(1, 1, 16)
 mesh = SubResource("BoxMesh_1bvp3")
 surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Container" type="HBoxContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme = ExtResource("5_lquwl")
-alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/Container"]
-layout_mode = 2
-size_flags_horizontal = 2
-theme = ExtResource("5_lquwl")
-
-[node name="ScoreA" type="RichTextLabel" parent="Control/Container/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-theme = ExtResource("5_lquwl")
-text = "0"
-fit_content = true
-autowrap_mode = 0
-
-[node name="MarginContainer2" type="MarginContainer" parent="Control/Container"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme = ExtResource("5_lquwl")
-
-[node name="ScoreB" type="RichTextLabel" parent="Control/Container/MarginContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-theme = ExtResource("5_lquwl")
-text = "0"
-fit_content = true
-autowrap_mode = 0
+[node name="UI" parent="." instance=ExtResource("5_lquwl")]
