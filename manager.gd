@@ -7,6 +7,11 @@ extends Node
 @export var ai_speed: float = 2;
 @export var debug_mesh: MeshInstance3D
 @export var is_two_player_mode: bool = false
+@export var text_player_A_score: RichTextLabel;
+@export var text_player_B_score: RichTextLabel;
+
+@onready var player_A_score: int = 0
+@onready var player_B_score: int = 0
 
 func _ready() -> void:
 	EventManager.connect("goal", _on_goal);
@@ -47,4 +52,9 @@ func aim_to_target(target: Vector3) -> void:
 	ai_paddle.direction = clamp(target_z - ai_paddle.global_position.z, -1, 1)
 
 func _on_goal(goal_hit: EventManager.PlayerGoalEnum) -> void:
-	print(goal_hit == EventManager.PlayerGoalEnum.A)
+	if (goal_hit == EventManager.PlayerGoalEnum.A):
+		player_B_score += 1
+		text_player_B_score.text = str(player_B_score)
+	else:
+		player_A_score += 1
+		text_player_A_score.text = str(player_A_score)

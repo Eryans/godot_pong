@@ -10,5 +10,5 @@ func on_area_entered(area: Area3D) -> void:
         var ball: Ball = area;
         ball.direction.x = - ball.direction.x;
         ball.reset();
-        EventManager.goal.emit(player_goal);
+        EventManager.goal_emit(player_goal);
     pass

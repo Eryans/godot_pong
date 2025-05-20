@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://caaf5w2sa0uvv"]
+[gd_scene load_steps=10 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://paddle.tscn" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://manager.gd" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://ball.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://score_zone.tscn" id="4_1bvp3"]
+[ext_resource type="Theme" uid="uid://cg8dikk6e4ojf" path="res://ui_theme.tres" id="5_lquwl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
@@ -16,7 +17,7 @@ size = Vector3(1, 1, 18)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
 albedo_color = Color(1, 0.387183, 0.425103, 1)
 
-[node name="Node3D" type="Node3D"]
+[node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 2)
@@ -32,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 [node name="Paddle2" parent="." instance=ExtResource("1_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball", "debug_mesh")]
+[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player", "ai_paddle", "ball", "debug_mesh", "text_player_A_score", "text_player_B_score")]
 script = ExtResource("2_0xm2m")
 player = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
@@ -40,6 +41,8 @@ ball = NodePath("../Ball")
 ai_speed = 0.25
 debug_mesh = NodePath("../DebugPoint")
 is_two_player_mode = true
+text_player_A_score = NodePath("../Control/Container/MarginContainer/ScoreA")
+text_player_B_score = NodePath("../Control/Container/MarginContainer2/ScoreB")
 
 [node name="Ball" parent="." instance=ExtResource("3_h2yge")]
 
@@ -104,18 +107,33 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme = ExtResource("5_lquwl")
 alignment = 1
 
-[node name="ScoreA" type="RichTextLabel" parent="Control/Container"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Container"]
 layout_mode = 2
 size_flags_horizontal = 2
+theme = ExtResource("5_lquwl")
+
+[node name="ScoreA" type="RichTextLabel" parent="Control/Container/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("5_lquwl")
 text = "0"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ScoreB" type="RichTextLabel" parent="Control/Container"]
+[node name="MarginContainer2" type="MarginContainer" parent="Control/Container"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme = ExtResource("5_lquwl")
+
+[node name="ScoreB" type="RichTextLabel" parent="Control/Container/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("5_lquwl")
 text = "0"
 fit_content = true
 autowrap_mode = 0

@@ -1,0 +1,13 @@
+[gd_resource type="Theme" format=3 uid="uid://cg8dikk6e4ojf"]
+
+[resource]
+MarginContainer/constants/margin_bottom = 0
+MarginContainer/constants/margin_left = 15
+MarginContainer/constants/margin_right = 15
+MarginContainer/constants/margin_top = 0
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/shadow_outline_size = 1
+RichTextLabel/font_sizes/normal_font_size = 48
