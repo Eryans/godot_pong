@@ -8,17 +8,23 @@ extends Node
 @export var is_two_player_mode: bool = false
 @export var ai_precision_margin: float = .1
 @export_range(.1, 1) var ai_speed: float = 2;
+@export_range(.1, 1) var ai_max_think_time: float = .75;
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new();
 @onready var _target: Vector3 = Vector3.ZERO;
 @onready var _target_vertical: float = 0;
+@onready var _think_timer: Timer = Timer.new();
 
-var arena_half_width: int = 8 # Should not change i guess
+var _arena_half_width: int = 8 # Should not change i guess
+var _ai_can_move = false;
+
 enum BallDirection {LEFT, RIGHT}
 
 func _ready() -> void:
 	EventManager.ball_hitted_paddle.connect(_on_ball_hitted_paddle)
-
+	add_child(_think_timer);
+	_think_timer.one_shot = true
+	_think_timer.connect("timeout", _on_think_timer_timeout);
 
 func _physics_process(_delta: float) -> void:
 	player_paddle.direction = Input.get_axis("up", "down")
@@ -30,25 +36,26 @@ func _physics_process(_delta: float) -> void:
 func _on_ball_hitted_paddle(player_tag: EventManager.PlayerTagEnum) -> void:
 	if (player_tag == EventManager.PlayerTagEnum.B):
 		choose_ai_wait_target();
+		_ai_can_move = false;
 	else:
-		choose_ai_attack_target();
+		_think_timer.start(rng.randf_range(.1, ai_max_think_time))
 
 func _ai_behavior() -> void:
 	if (_get_ball_direction() == BallDirection.LEFT):
 		_go_to_on_vertical_axis(_target_vertical);
 	else:
-		_aim_to_target(_target);
-		#TODO :when ball bounce on paddle, decide a new behavior for the  ai_paddle depending on player_paddle position and ball direction
+		if (_ai_can_move):
+			_aim_to_target(_target);
 
 func choose_ai_wait_target() -> void:
 	var rdm_int: int = rng.randi_range(1, 4);
 	match (rdm_int):
 		2:
-			_target_vertical = 5;
+			_target_vertical = (float(_arena_half_width) / 2);
 		3:
-			_target_vertical = -5;
+			_target_vertical = - (float(_arena_half_width) / 2);
 		4:
-			_target_vertical = rng.randi_range(-8, 8)
+			_target_vertical = rng.randi_range(-_arena_half_width, _arena_half_width)
 		_, 1:
 			_target_vertical = 0;
 
@@ -56,16 +63,18 @@ func choose_ai_wait_target() -> void:
 func choose_ai_attack_target() -> void:
 	var rdm_int: int = rng.randi_range(1, 3);
 	var player_paddle_vector = Vector3(player_paddle.global_position.x, 0, 0)
-	print(rdm_int)
 	match (rdm_int):
 		2: # random attack
-			_target = player_paddle_vector + Vector3.UP * rng.randi_range(-8, 8);
+			_target = player_paddle_vector + Vector3.UP * rng.randi_range(-_arena_half_width, _arena_half_width);
 		3: # Aim for player contrary point
-			_target = player_paddle_vector + Vector3.UP * (-8 if player_paddle.global_position.z > 0 else 8);
+			_target = player_paddle_vector + Vector3.UP * (-_arena_half_width if player_paddle.global_position.z > 0 else _arena_half_width);
 		_, 1: # aim for center
 			_target = Vector3.ZERO;
 
-	
+func _on_think_timer_timeout() -> void:
+	_ai_can_move = true;
+	choose_ai_attack_target();
+
 func _go_to_on_vertical_axis(target_z: float) -> void:
 	var diff = target_z - ai_paddle.global_position.z
 	if abs(diff) < ai_precision_margin:
