@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
-[ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/manager.gd" id="2_tefeu"]
+[ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/ai.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://entities/ball/ball.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://entities/score_zone/score_zone.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
@@ -34,7 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
 tag = 1
 
-[node name="Manager" type="Node" parent="." node_paths=PackedStringArray("player_paddle", "ai_paddle", "ball", "debug_mesh")]
+[node name="AI" type="Node" parent="." node_paths=PackedStringArray("player_paddle", "ai_paddle", "ball", "debug_mesh")]
 script = ExtResource("2_tefeu")
 player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")

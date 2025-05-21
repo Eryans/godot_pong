@@ -1,4 +1,4 @@
-class_name Manager
+class_name AI
 extends Node
 
 @export var player_paddle: Paddle;
