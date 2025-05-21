@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2676uqhqtvay"]
+
+[ext_resource type="Script" uid="uid://c07k105v5nfv2" path="res://entities/bonus/shield/shields_manager.gd" id="1_i5tjg"]
+[ext_resource type="PackedScene" uid="uid://cmjyf3ttmg8lf" path="res://entities/bonus/shield/shield.tscn" id="2_l8tme"]
+
+[node name="ShieldsManager" type="Node"]
+script = ExtResource("1_i5tjg")
+
+[node name="Shield_A" parent="." instance=ExtResource("2_l8tme")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+
+[node name="Shield_B" parent="." instance=ExtResource("2_l8tme")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)

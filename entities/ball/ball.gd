@@ -7,6 +7,7 @@ extends Area3D
 
 var direction: Vector2 = Vector2.LEFT;
 var rdm: RandomNumberGenerator = RandomNumberGenerator.new()
+var last_hitted_paddle: EventManager.PlayerTagEnum = EventManager.PlayerTagEnum.A;
 
 func _ready() -> void:
 	direction.y = rdm.randf_range(-.5, .5);
@@ -19,8 +20,11 @@ func on_body_entered(body: Node3D) -> void:
 	speed += bounce_speed_increase;
 	if (body is CSGBox3D):
 		direction.y = - direction.y;
+	if (body is StaticBody3D):
+		direction.x = - direction.x
 	if (body is Paddle):
 		var paddle: Paddle = body
+		last_hitted_paddle = paddle.tag;
 		var max_angle = deg_to_rad(75);
 		var offset = (global_position.z - paddle.position.z) / (paddle.get_width() / 2);
 		offset = clamp(offset, -1, 1);

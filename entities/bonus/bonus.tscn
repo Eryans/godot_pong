@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://drnmrkygk2jt"]
+[gd_scene load_steps=5 format=3 uid="uid://drnmrkygk2jt"]
+
+[ext_resource type="Script" uid="uid://c4pa317dctfd3" path="res://entities/bonus/bonus.gd" id="1_r8c8f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e1qnx"]
 
@@ -8,6 +10,7 @@ albedo_color = Color(0.828299, 0.946543, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_piybw"]
 
 [node name="Bonus" type="Area3D"]
+script = ExtResource("1_r8c8f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_e1qnx")
