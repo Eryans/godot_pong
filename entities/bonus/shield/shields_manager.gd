@@ -1,4 +1,14 @@
 extends Node
 
-@onready var shield_A: StaticBody3D = %Shield_A
-@onready var shield_B: StaticBody3D = %Shield_B
+@onready var shield_A: Shield = %Shield_A;
+@onready var shield_B: Shield = %Shield_B;
+
+func _ready() -> void:
+    EventManager.activate_shield_bonus.connect(_on_activate_shield);
+
+func _on_activate_shield(paddle: Enums.PlayerTagEnum) -> void:
+    if (paddle == Enums.PlayerTagEnum.A):
+        shield_A.call_deferred("enable");
+    else:
+        shield_B.call_deferred("enable");
+    pass
