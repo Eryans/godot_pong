@@ -5,7 +5,7 @@ extends CharacterBody3D
 @onready var _paddle_mesh: MeshInstance3D = $MeshInstance3D
 
 @export var speed: float = 2.5;
-@export var tag: EventManager.PlayerTagEnum;
+@export var tag: Enums.PlayerTagEnum;
 @export_range(.1, .99) var friction: float = .9;
 
 

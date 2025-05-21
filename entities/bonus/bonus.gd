@@ -1,12 +1,7 @@
 extends Area3D
 class_name Bonus
 
-enum BonusTypeEnum {
-    shield,
-    acceleration
-}
-
-@export var bonus_type: BonusTypeEnum = BonusTypeEnum.shield
+@export var bonus_type: Enums.BonusTypeEnum
 
 func _ready() -> void:
     area_entered.connect(_on_area_entered);

@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Enums="*res://main_scripts/enums.gd"
 EventManager="*res://main_scripts/event_manager.gd"
 GameGlobal="*res://main_scripts/game_global.gd"
 

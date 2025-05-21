@@ -18,7 +18,6 @@ extends Node
 var _arena_half_width: int = 8 # Should not change i guess
 var _ai_can_move = false;
 
-enum BallDirection {LEFT, RIGHT}
 
 func _ready() -> void:
 	EventManager.ball_hitted_paddle.connect(_on_ball_hitted_paddle)
@@ -35,8 +34,8 @@ func _physics_process(_delta: float) -> void:
 	else:
 		_ai_behavior()
 
-func _on_ball_hitted_paddle(player_tag: EventManager.PlayerTagEnum) -> void:
-	if (player_tag == EventManager.PlayerTagEnum.B):
+func _on_ball_hitted_paddle(player_tag: Enums.PlayerTagEnum) -> void:
+	if (player_tag == Enums.PlayerTagEnum.B):
 		choose_ai_wait_target();
 		_ai_can_move = false;
 	else:
@@ -44,7 +43,7 @@ func _on_ball_hitted_paddle(player_tag: EventManager.PlayerTagEnum) -> void:
 		_think_timer.start(rng.randf_range(.1, ai_max_think_time))
 
 func _ai_behavior() -> void:
-	if (_get_ball_direction() == BallDirection.LEFT):
+	if (_get_ball_direction() == Enums.BallDirection.LEFT):
 		_go_to_on_vertical_axis(_target_vertical);
 	else:
 		if (_ai_can_move):
@@ -91,11 +90,11 @@ func _go_to_on_vertical_axis(target_z: float) -> void:
 	else:
 		ai_paddle.direction = sign(diff) * ai_speed
 
-func _get_ball_direction() -> BallDirection:
+func _get_ball_direction() -> Enums.BallDirection:
 	if (ball.direction.x < 0):
-		return BallDirection.LEFT
+		return Enums.BallDirection.LEFT
 	else:
-		return BallDirection.RIGHT
+		return Enums.BallDirection.RIGHT
 
 func _get_intersection_point(ball_pos: Vector3, ball_dir: Vector3, paddle_x: float) -> Vector3:
 	if abs(ball_dir.x) < 0.001:

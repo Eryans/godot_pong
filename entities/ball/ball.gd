@@ -7,7 +7,7 @@ extends Area3D
 
 var direction: Vector2 = Vector2.LEFT;
 var rdm: RandomNumberGenerator = RandomNumberGenerator.new()
-var last_hitted_paddle: EventManager.PlayerTagEnum = EventManager.PlayerTagEnum.A;
+var last_hitted_paddle: Enums.PlayerTagEnum;
 
 func _ready() -> void:
 	direction.y = rdm.randf_range(-.5, .5);
