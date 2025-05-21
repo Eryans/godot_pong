@@ -27,6 +27,8 @@ func _ready() -> void:
 	_think_timer.connect("timeout", _on_think_timer_timeout);
 
 func _physics_process(_delta: float) -> void:
+	#TODO : Refactor this bit to have a better separation of responsability
+	# Or not ? who cares
 	player_paddle.direction = Input.get_axis("up", "down")
 	if (is_two_player_mode):
 		ai_paddle.direction = Input.get_axis("ui_up", "ui_down")
@@ -38,6 +40,7 @@ func _on_ball_hitted_paddle(player_tag: EventManager.PlayerTagEnum) -> void:
 		choose_ai_wait_target();
 		_ai_can_move = false;
 	else:
+		# TODO : Fix timer preventing AI to act after scoring because it waits for the ball to bounce off the player
 		_think_timer.start(rng.randf_range(.1, ai_max_think_time))
 
 func _ai_behavior() -> void:

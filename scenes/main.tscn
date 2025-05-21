@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://caaf5w2sa0uvv"]
+[gd_scene load_steps=11 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/ai.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://entities/ball/ball.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://entities/score_zone/score_zone.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
+[ext_resource type="Script" uid="uid://cspgrv5brf64m" path="res://main_scripts/bonus_manager.gd" id="6_tefeu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
@@ -88,7 +89,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.994895, 0)
 size = Vector3(1, 1, 16)
 
 [node name="DebugPoint" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_1bvp3")
 surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
 
 [node name="UI" parent="." instance=ExtResource("5_85g3d")]
+
+[node name="BonusManager" type="Node" parent="."]
+script = ExtResource("6_tefeu")
