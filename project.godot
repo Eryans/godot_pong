@@ -21,6 +21,7 @@ Enums="*res://main_scripts/enums.gd"
 EventManager="*res://main_scripts/event_manager.gd"
 GameGlobal="*res://main_scripts/game_global.gd"
 BonusManager="*res://main_scripts/bonus_manager.gd"
+GameManager="*res://main_scripts/game_manager.gd"
 
 [input]
 

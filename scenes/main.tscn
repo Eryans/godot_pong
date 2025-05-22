@@ -41,7 +41,6 @@ player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 debug_mesh = NodePath("../DebugPoint")
-_ai_speed = 0.9
 
 [node name="Ball" parent="." instance=ExtResource("3_o6xl0")]
 
@@ -94,5 +93,6 @@ mesh = SubResource("BoxMesh_1bvp3")
 surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
 
 [node name="UI" parent="." instance=ExtResource("5_85g3d")]
+process_mode = 3
 
 [node name="ShieldsManager" parent="." instance=ExtResource("7_o6xl0")]

@@ -48,3 +48,22 @@ theme = ExtResource("1_fyqef")
 text = "0"
 fit_content = true
 autowrap_mode = 0
+
+[node name="NewRoundTimerText" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.515
+anchor_top = 0.527
+anchor_right = 0.515
+anchor_bottom = 0.527
+offset_left = -37.28
+offset_top = -37.496
+offset_right = 37.72
+offset_bottom = 37.504
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fyqef")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

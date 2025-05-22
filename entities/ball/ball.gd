@@ -11,7 +11,7 @@ var current_speed_save: float;
 var direction: Vector2 = Vector2.LEFT;
 var rdm: RandomNumberGenerator = RandomNumberGenerator.new()
 var last_hitted_paddle: Enums.PlayerTagEnum;
-var _maximum_speed: float = 30.0
+var _maximum_speed: float = 25.0
 
 func _ready() -> void:
 	direction.y = rdm.randf_range(-.5, .5);
