@@ -6,8 +6,8 @@ extends Node
 @export var ball: Ball;
 @export var debug_mesh: MeshInstance3D
 @export var is_two_player_mode: bool = false
-@export var ai_precision_margin: float = .1
-@export_range(.1, 1) var ai_speed: float = 2;
+@export var _ai_precision_margin: float = .1
+@export_range(.1, 1) var _ai_speed: float = .9;
 @export_range(.1, 1) var ai_max_think_time: float = .75;
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new();
@@ -18,10 +18,10 @@ extends Node
 var _arena_half_width: int = 8 # Should not change i guess
 var _ai_can_move = false;
 
-
 func _ready() -> void:
 	EventManager.ball_hitted_paddle.connect(_on_ball_hitted_paddle)
 	add_child(_think_timer);
+	EventManager.connect("goal", _on_goal);
 	_think_timer.one_shot = true
 	_think_timer.connect("timeout", _on_think_timer_timeout);
 
@@ -32,14 +32,6 @@ func _physics_process(_delta: float) -> void:
 		ai_paddle.direction = Input.get_axis("ui_up", "ui_down")
 	else:
 		_ai_behavior()
-
-func _on_ball_hitted_paddle(player_tag: Enums.PlayerTagEnum) -> void:
-	if (player_tag == Enums.PlayerTagEnum.B):
-		choose_ai_wait_target();
-		_ai_can_move = false;
-	else:
-		# TODO : Fix timer preventing AI to act after scoring because it waits for the ball to bounce off the player
-		_think_timer.start(rng.randf_range(.1, ai_max_think_time))
 
 func _ai_behavior() -> void:
 	if (_get_ball_direction() == Enums.BallDirection.LEFT):
@@ -75,22 +67,17 @@ func choose_ai_attack_target() -> void:
 			if (!current_bonus.is_empty()):
 				_target = (current_bonus[0] as Bonus).global_position;
 	debug_mesh.global_position = _target
-		
-
-func _on_think_timer_timeout() -> void:
-	_ai_can_move = true;
-	choose_ai_attack_target();
 
 func _go_to_on_vertical_axis(target_z: float) -> void:
 	var diff = target_z - ai_paddle.global_position.z
-	if abs(diff) < ai_precision_margin:
+	if abs(diff) < _ai_precision_margin:
 		# Augmenter la marge réduit la précision 
 		# de la raquette quand elle vise un point précis
 		# car elle ne s'arrête plus à l'endroit exact
 		# pour un rebond parfait vers la cible
 		ai_paddle.direction = 0
 	else:
-		ai_paddle.direction = sign(diff) * ai_speed
+		ai_paddle.direction = sign(diff) * _ai_speed
 
 func _get_ball_direction() -> Enums.BallDirection:
 	if (ball.direction.x < 0):
@@ -120,3 +107,18 @@ func _aim_to_target(target: Vector3) -> void:
 	var target_z: float = impact_point.z + offset * paddle_half_height
 
 	_go_to_on_vertical_axis(target_z)
+
+func _on_goal(_player_tag: Enums.PlayerTagEnum) -> void:
+	_ai_can_move = true;
+
+func _on_think_timer_timeout() -> void:
+	_ai_can_move = true;
+	choose_ai_attack_target();
+
+func _on_ball_hitted_paddle(player_tag: Enums.PlayerTagEnum) -> void:
+	if (player_tag == Enums.PlayerTagEnum.B):
+		choose_ai_wait_target();
+		_ai_can_move = false;
+	else:
+		# TODO : Fix timer preventing AI to act after scoring because it waits for the ball to bounce off the player
+		_think_timer.start(rng.randf_range(.1, ai_max_think_time))

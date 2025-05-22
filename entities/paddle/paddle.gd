@@ -10,8 +10,8 @@ extends CharacterBody3D
 
 @export var speed: float = 2.5;
 @export var tag: Enums.PlayerTagEnum;
-@export_range(.1, .99) var friction: float = .9;
 @export var bonus_time: float = 8
+@export_range(.1, .99) var friction: float = .9;
 
 var _friction_tmp_save: float = 0;
 var _paddle_original_size: Vector3 = Vector3(.25, 1, 3.5);

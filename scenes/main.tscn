@@ -41,7 +41,7 @@ player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 debug_mesh = NodePath("../DebugPoint")
-ai_speed = 0.75
+_ai_speed = 0.9
 
 [node name="Ball" parent="." instance=ExtResource("3_o6xl0")]
 
