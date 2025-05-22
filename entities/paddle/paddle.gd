@@ -3,11 +3,32 @@ extends CharacterBody3D
 
 @onready var direction: float = 0;
 @onready var _paddle_mesh: MeshInstance3D = $MeshInstance3D
+@onready var _paddle_collider: CollisionShape3D = $CollisionShape3D
+@onready var _slow_timer: Timer = Timer.new()
+@onready var _shrink_timer: Timer = Timer.new()
+@onready var _grow_timer: Timer = Timer.new()
 
 @export var speed: float = 2.5;
 @export var tag: Enums.PlayerTagEnum;
 @export_range(.1, .99) var friction: float = .9;
+@export var bonus_time: float = 8
 
+var _friction_tmp_save: float = 0;
+var _paddle_original_size: Vector3 = Vector3(.25, 1, 3.5);
+
+func _ready() -> void:
+	BonusManager.activate_slow_debuff_bonus.connect(_on_slow_debuff)
+	BonusManager.activate_shrink_debuff_bonus.connect(_on_shrink_debuff)
+	BonusManager.activate_grow_buff_bonus.connect(_on_grow_buff)
+	add_child(_slow_timer)
+	add_child(_shrink_timer)
+	add_child(_grow_timer)
+	_slow_timer.timeout.connect(_on_slow_timeout)
+	_shrink_timer.timeout.connect(_on_shrink_timeout)
+	_grow_timer.timeout.connect(_on_grow_timeout)
+	_slow_timer.one_shot = true;
+	_shrink_timer.one_shot = true;
+	_grow_timer.one_shot = true;
 
 func get_width() -> float:
 	return _paddle_mesh.get_aabb().size.z;
@@ -16,3 +37,34 @@ func _physics_process(_delta: float) -> void:
 	velocity.z += direction * speed;
 	velocity.z *= friction;
 	move_and_slide();
+
+func _on_slow_debuff(p_tag: Enums.PlayerTagEnum) -> void:
+	if (tag == p_tag):
+		_friction_tmp_save = friction;
+		friction = .45;
+		_slow_timer.start(bonus_time);
+		
+func _on_shrink_debuff(p_tag: Enums.PlayerTagEnum) -> void:
+	if (tag == p_tag):
+		_paddle_mesh.mesh.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
+		_paddle_collider.shape.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
+		_shrink_timer.start(bonus_time);
+
+func _on_grow_buff(p_tag: Enums.PlayerTagEnum) -> void:
+	if (tag == p_tag):
+		_paddle_mesh.mesh.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
+		_paddle_collider.shape.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
+		_grow_timer.start(bonus_time);
+
+func _on_slow_timeout() -> void:
+		friction = _friction_tmp_save
+
+func _on_shrink_timeout() -> void:
+	reset_size()
+
+func _on_grow_timeout() -> void:
+	reset_size()
+
+func reset_size() -> void:
+	_paddle_mesh.mesh.size = _paddle_original_size
+	_paddle_collider.shape.size = _paddle_original_size

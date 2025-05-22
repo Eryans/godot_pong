@@ -1,7 +1,7 @@
 extends Area3D
 class_name Bonus
 
-@export var bonus_type: Enums.BonusTypeEnum
+@export var bonus_type: BonusManager.BonusTypeEnum
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered);

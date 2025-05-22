@@ -7,6 +7,17 @@ extends Node
 signal bonus_was_hit(bonus: Bonus, paddle_who_hit: Enums.PlayerTagEnum);
 signal activate_shield_bonus(paddle_to_attribuate: Enums.PlayerTagEnum)
 signal activate_acceleration_bonus(paddle_to_attribuate: Enums.PlayerTagEnum)
+signal activate_slow_debuff_bonus(paddle_to_attribuate: Enums.PlayerTagEnum)
+signal activate_shrink_debuff_bonus(paddle_to_attribuate: Enums.PlayerTagEnum)
+signal activate_grow_buff_bonus(paddle_to_attribuate: Enums.PlayerTagEnum)
+
+enum BonusTypeEnum {
+	shield,
+	acceleration,
+	paddle_slow_debuff,
+	paddle_shrink_debuff,
+	paddle_grow_buff
+}
 
 func _ready() -> void:
 	add_child(_spawn_timer);
@@ -18,16 +29,21 @@ func _ready() -> void:
 func spawn() -> void:
 	var new_bonus: Bonus = bonus_scene.instantiate();
 	get_tree().current_scene.add_child(new_bonus);
-	var rdm_bonus_type_index: int = randi_range(0, Enums.BonusTypeEnum.size() - 1)
-	new_bonus.bonus_type = rdm_bonus_type_index as Enums.BonusTypeEnum
+	new_bonus.bonus_type = randi_range(0, BonusTypeEnum.size() - 1) as BonusTypeEnum
 	new_bonus.global_position = Vector3(rng.randf_range(-7, 7), 0, rng.randf_range(-7, 7));
 
 func _on_bonus_hit(bonus: Bonus, _paddle_who_hit: Enums.PlayerTagEnum) -> void:
 	match (bonus.bonus_type):
-		Enums.BonusTypeEnum.shield:
+		BonusTypeEnum.shield:
 			activate_shield_bonus.emit(_paddle_who_hit);
-		Enums.BonusTypeEnum.acceleration:
-			activate_acceleration_bonus.emit(_paddle_who_hit)
+		BonusTypeEnum.acceleration:
+			activate_acceleration_bonus.emit(_paddle_who_hit);
+		BonusTypeEnum.paddle_slow_debuff:
+			activate_slow_debuff_bonus.emit(_paddle_who_hit);
+		BonusTypeEnum.paddle_shrink_debuff:
+			activate_shrink_debuff_bonus.emit(_paddle_who_hit);
+		BonusTypeEnum.paddle_grow_buff:
+			activate_grow_buff_bonus.emit(_paddle_who_hit);
 		_:
 			pass
 
