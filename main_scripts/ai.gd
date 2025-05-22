@@ -120,5 +120,4 @@ func _on_ball_hitted_paddle(player_tag: Enums.PlayerTagEnum) -> void:
 		choose_ai_wait_target();
 		_ai_can_move = false;
 	else:
-		# TODO : Fix timer preventing AI to act after scoring because it waits for the ball to bounce off the player
 		_think_timer.start(rng.randf_range(.1, ai_max_think_time))

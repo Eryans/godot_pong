@@ -11,6 +11,7 @@ var current_speed_save: float;
 var direction: Vector2 = Vector2.LEFT;
 var rdm: RandomNumberGenerator = RandomNumberGenerator.new()
 var last_hitted_paddle: Enums.PlayerTagEnum;
+var _maximum_speed: float = 30.0
 
 func _ready() -> void:
 	direction.y = rdm.randf_range(-.5, .5);
@@ -24,7 +25,8 @@ func _physics_process(delta: float) -> void:
 	global_position += Vector3(direction.x, global_position.y, direction.y) * speed * delta;
 
 func on_body_entered(body: Node3D) -> void:
-	speed += bounce_speed_increase;
+	if (speed < _maximum_speed):
+		speed += bounce_speed_increase;
 	if (body is CSGBox3D):
 		direction.y = - direction.y;
 	if (body is StaticBody3D):
