@@ -41,29 +41,31 @@ func _physics_process(_delta: float) -> void:
 func _on_slow_debuff(p_tag: Enums.PlayerTagEnum) -> void:
 	if (tag == p_tag):
 		_friction_tmp_save = friction;
-		friction = .45;
+		friction = .75;
 		_slow_timer.start(bonus_time);
-		
+
 func _on_shrink_debuff(p_tag: Enums.PlayerTagEnum) -> void:
 	if (tag == p_tag):
-		_paddle_mesh.mesh.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
-		_paddle_collider.shape.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
+		_change_paddle_vertical_size(2)
 		_shrink_timer.start(bonus_time);
 
 func _on_grow_buff(p_tag: Enums.PlayerTagEnum) -> void:
 	if (tag == p_tag):
-		_paddle_mesh.mesh.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
-		_paddle_collider.shape.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, 2)
+		_change_paddle_vertical_size(5)
 		_grow_timer.start(bonus_time);
 
 func _on_slow_timeout() -> void:
-		friction = _friction_tmp_save
+	friction = _friction_tmp_save
 
 func _on_shrink_timeout() -> void:
 	reset_size()
 
 func _on_grow_timeout() -> void:
 	reset_size()
+
+func _change_paddle_vertical_size(size: float) -> void:
+	_paddle_mesh.mesh.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, size)
+	_paddle_collider.shape.size = Vector3(_paddle_original_size.x, _paddle_original_size.y, size)
 
 func reset_size() -> void:
 	_paddle_mesh.mesh.size = _paddle_original_size
