@@ -3,8 +3,11 @@ extends Area3D
 
 @export var base_speed: float = 10.0;
 @export var bounce_speed_increase: float = .5;
-@onready var speed: float = base_speed;
 
+@onready var speed: float = base_speed;
+@onready var _acceleration_bonus_timer: Timer = Timer.new()
+
+var current_speed_save: float;
 var direction: Vector2 = Vector2.LEFT;
 var rdm: RandomNumberGenerator = RandomNumberGenerator.new()
 var last_hitted_paddle: Enums.PlayerTagEnum;
@@ -12,6 +15,10 @@ var last_hitted_paddle: Enums.PlayerTagEnum;
 func _ready() -> void:
 	direction.y = rdm.randf_range(-.5, .5);
 	body_entered.connect(on_body_entered);
+	add_child(_acceleration_bonus_timer);
+	_acceleration_bonus_timer.one_shot = true;
+	_acceleration_bonus_timer.timeout.connect(_on_acceleration_timer_timeout)
+	BonusManager.activate_acceleration_bonus.connect(_on_acceleration_bonus)
 
 func _physics_process(delta: float) -> void:
 	global_position += Vector3(direction.x, global_position.y, direction.y) * speed * delta;
@@ -35,3 +42,12 @@ func on_body_entered(body: Node3D) -> void:
 func reset() -> void:
 	global_position = Vector3.ZERO;
 	speed = base_speed;
+
+func _on_acceleration_bonus(_paddle_who_hit: Enums.PlayerTagEnum) -> void:
+	current_speed_save = speed;
+	speed += 10
+	_acceleration_bonus_timer.start(4)
+	pass
+
+func _on_acceleration_timer_timeout() -> void:
+	speed = current_speed_save

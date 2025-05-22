@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://c4pa317dctfd3" path="res://entities/bonus/bonus.gd" id="1_r8c8f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e1qnx"]
+size = Vector3(2, 1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3no7k"]
 albedo_color = Color(0.828299, 0.946543, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piybw"]
+size = Vector3(2, 1, 2)
 
 [node name="Bonus" type="Area3D" groups=["bonus"]]
 script = ExtResource("1_r8c8f")
