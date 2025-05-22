@@ -9,7 +9,7 @@ albedo_color = Color(0.828299, 0.946543, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piybw"]
 
-[node name="Bonus" type="Area3D"]
+[node name="Bonus" type="Area3D" groups=["bonus"]]
 script = ExtResource("1_r8c8f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

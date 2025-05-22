@@ -8,4 +8,5 @@ func _ready() -> void:
 
 func _on_area_entered(area: Area3D) -> void:
     if (area is Ball):
-        EventManager.bonus_was_hit_emit(self, area.last_hitted_paddle)
+        EventManager.bonus_was_hit_emit(self, area.last_hitted_paddle);
+        call_deferred("queue_free");

@@ -27,7 +27,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	#TODO : Refactor this bit to have a better separation of responsability
-	# Or not ? who cares
 	player_paddle.direction = Input.get_axis("up", "down")
 	if (is_two_player_mode):
 		ai_paddle.direction = Input.get_axis("ui_up", "ui_down")
@@ -70,8 +69,11 @@ func choose_ai_attack_target() -> void:
 			_target = player_paddle_vector + Vector3(0, 0, 1) * rng.randi_range(-_arena_half_width, _arena_half_width);
 		3: # Aim for player contrary point
 			_target = player_paddle_vector + Vector3(0, 0, 1) * (-_arena_half_width if player_paddle.global_position.z > 0 else _arena_half_width);
-		_, 1: # aim for center
+		_, 1: # aim for center or bonus
 			_target = Vector3.ZERO;
+			var current_bonus: Array[Node] = get_tree().get_nodes_in_group("bonus");
+			if (!current_bonus.is_empty()):
+				_target = (current_bonus[0] as Bonus).global_position;
 	debug_mesh.global_position = _target
 		
 
