@@ -14,10 +14,8 @@ func _ready() -> void:
 
 func _on_goal(_player_tag: Enums.PlayerTagEnum) -> void:
 	_new_round_timer.start(3)
-	get_tree().paused = true;
 
 func _on_new_round_timeout() -> void:
-	get_tree().paused = false;
 	new_round_timer_timeout.emit()
 
 func _process(_delta):

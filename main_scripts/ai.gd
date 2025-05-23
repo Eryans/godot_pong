@@ -8,7 +8,7 @@ extends Node
 @export var is_two_player_mode: bool = false
 @export var _ai_precision_margin: float = .1
 @export_range(.1, 1) var _ai_speed: float = .9;
-@export_range(.1, 1) var ai_max_think_time: float = .75;
+@export_range(.1, 4) var ai_max_think_time: float = .75;
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new();
 @onready var _target: Vector3 = Vector3.ZERO;

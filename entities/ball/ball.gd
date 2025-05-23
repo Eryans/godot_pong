@@ -4,7 +4,7 @@ extends Area3D
 @export var base_speed: float = 10.0;
 @export var bounce_speed_increase: float = .5;
 
-@onready var speed: float = base_speed;
+@onready var speed: float = 0;
 @onready var _acceleration_bonus_timer: Timer = Timer.new()
 
 var current_speed_save: float;
@@ -20,6 +20,9 @@ func _ready() -> void:
 	_acceleration_bonus_timer.one_shot = true;
 	_acceleration_bonus_timer.timeout.connect(_on_acceleration_timer_timeout)
 	BonusManager.activate_acceleration_bonus.connect(_on_acceleration_bonus)
+	EventManager.goal.connect(_on_goal);
+	GameManager.new_round_timer_timeout.connect(_on_new_round_timer_timeout);
+
 
 func _physics_process(delta: float) -> void:
 	global_position += Vector3(direction.x, global_position.y, direction.y) * speed * delta;
@@ -43,7 +46,6 @@ func on_body_entered(body: Node3D) -> void:
 
 func reset() -> void:
 	global_position = Vector3.ZERO;
-	speed = base_speed;
 
 func _on_acceleration_bonus(_paddle_who_hit: Enums.PlayerTagEnum) -> void:
 	current_speed_save = speed;
@@ -53,3 +55,11 @@ func _on_acceleration_bonus(_paddle_who_hit: Enums.PlayerTagEnum) -> void:
 
 func _on_acceleration_timer_timeout() -> void:
 	speed = current_speed_save
+
+func _on_goal(_player: Enums.PlayerTagEnum) -> void:
+	speed = 0;
+	direction.y = rdm.randf_range(-1, 1)
+	direction.x = 1 if _player == Enums.PlayerTagEnum.A else -1
+	direction = direction.normalized()
+func _on_new_round_timer_timeout() -> void:
+	speed = base_speed

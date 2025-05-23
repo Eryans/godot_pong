@@ -25,6 +25,9 @@ func _ready() -> void:
 	_spawn_timer.one_shot = true;
 	_spawn_timer.start(rng.randf_range(5, 10))
 	bonus_was_hit.connect(_on_bonus_hit);
+	EventManager.goal.connect(_on_goal);
+	GameManager.new_round_timer_timeout.connect(_on_new_round_timer_timeout);
+
 
 func spawn() -> void:
 	var new_bonus: Bonus = bonus_scene.instantiate();
@@ -55,3 +58,9 @@ func _on_spawn_timeout() -> void:
 
 func bonus_was_hit_emit(bonus: Bonus, paddle_who_hit: Enums.PlayerTagEnum) -> void:
 	bonus_was_hit.emit(bonus, paddle_who_hit);
+
+func _on_goal(_player) -> void:
+	_spawn_timer.paused = true
+
+func _on_new_round_timer_timeout() -> void:
+	_spawn_timer.paused = false

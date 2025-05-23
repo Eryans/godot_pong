@@ -41,6 +41,7 @@ player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 debug_mesh = NodePath("../DebugPoint")
+ai_max_think_time = 1.25
 
 [node name="Ball" parent="." instance=ExtResource("3_o6xl0")]
 

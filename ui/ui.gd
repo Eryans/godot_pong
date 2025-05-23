@@ -15,7 +15,7 @@ func _on_goal(goal_hit: Enums.PlayerTagEnum) -> void:
 	if (goal_hit == Enums.PlayerTagEnum.A):
 		GameGlobal.player_B_score += 1;
 		text_player_B_score.text = str(GameGlobal.player_B_score);
-	else:
+	elif (goal_hit == Enums.PlayerTagEnum.B):
 		GameGlobal.player_A_score += 1;
 		text_player_A_score.text = str(GameGlobal.player_A_score);
 
