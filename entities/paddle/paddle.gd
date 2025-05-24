@@ -4,6 +4,8 @@ extends CharacterBody3D
 @onready var direction: float = 0;
 @onready var _paddle_mesh: MeshInstance3D = $MeshInstance3D
 @onready var _paddle_collider: CollisionShape3D = $CollisionShape3D
+@onready var _paddle_border_decoration_neg = %PaddleBorderDecorationNeg
+@onready var _paddle_border_decoration_pos = %PaddleBorderDecorationPos
 @onready var _slow_timer: Timer = Timer.new()
 @onready var _shrink_timer: Timer = Timer.new()
 @onready var _grow_timer: Timer = Timer.new()
@@ -34,6 +36,9 @@ func get_width() -> float:
 	return _paddle_mesh.get_aabb().size.z;
 
 func _physics_process(_delta: float) -> void:
+	var paddle_decoration_half_width = .124 # size is reduced a tiny bit to hide clipping
+	_paddle_border_decoration_neg.position.z = - get_width() / 2 + paddle_decoration_half_width
+	_paddle_border_decoration_pos.position.z = get_width() / 2 - paddle_decoration_half_width
 	velocity.z += direction * speed;
 	velocity.z *= friction;
 	move_and_slide();
