@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://caaf5w2sa0uvv"]
+[gd_scene load_steps=17 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/ai.gd" id="2_tefeu"]
@@ -8,11 +8,38 @@
 [ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://b2676uqhqtvay" path="res://entities/bonus/shield/shields_manager.tscn" id="7_o6xl0"]
 
+[sub_resource type="Environment" id="Environment_o6xl0"]
+background_mode = 1
+background_color = Color(0.462745, 0.337255, 0.560784, 1)
+reflected_light_source = 1
+tonemap_mode = 3
+ssr_fade_in = 0.0477962
+ssao_power = 1.5
+ssao_sharpness = 0.75
+glow_intensity = 1.58
+adjustment_enabled = true
+adjustment_saturation = 2.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
-albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
+albedo_color = Color(0.721569, 0.615686, 0.431373, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6xl0"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85g3d"]
+albedo_color = Color(0.415686, 0.52549, 0.690196, 1)
+emission_enabled = true
+emission = Color(0.415686, 0.52549, 0.690196, 1)
+emission_energy_multiplier = 4.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 size = Vector3(1, 1, 18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xl0"]
+albedo_color = Color(0.180392, 0.145098, 0.239216, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
+albedo_color = Color(0.180392, 0.145098, 0.239216, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_1bvp3"]
 
@@ -23,12 +50,15 @@ albedo_color = Color(1, 0.387183, 0.425103, 1)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 2)
+shadow_blur = 0.1
+shadow_caster_mask = 4294966273
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
-v_offset = 0.5
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 10)
+environment = SubResource("Environment_o6xl0")
+v_offset = 4.5
 projection = 1
-size = 15.0
+size = 16.0
 
 [node name="Paddle" parent="." instance=ExtResource("1_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
@@ -62,14 +92,37 @@ use_collision = true
 size = Vector3(40, 1, 17)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.87439)
+light_color = Color(0.415686, 0.52549, 0.690196, 1)
 light_energy = 6.434
 omni_range = 22.813
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0532751)
+mesh = SubResource("BoxMesh_o6xl0")
+surface_material_override/0 = SubResource("StandardMaterial3D_85g3d")
+
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7.87439)
+light_color = Color(0.415686, 0.52549, 0.690196, 1)
 light_energy = 6.434
 omni_range = 22.813
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0532751)
+mesh = SubResource("BoxMesh_o6xl0")
+surface_material_override/0 = SubResource("StandardMaterial3D_85g3d")
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7.87439)
+light_color = Color(0.415686, 0.52549, 0.690196, 1)
+light_energy = 6.434
+omni_range = 22.813
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="OmniLight3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0532751)
+mesh = SubResource("BoxMesh_o6xl0")
+surface_material_override/0 = SubResource("StandardMaterial3D_85g3d")
 
 [node name="ScoreZone" parent="." instance=ExtResource("4_tipki")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 0)
@@ -86,10 +139,12 @@ shape = SubResource("BoxShape3D_lquwl")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.994895, 0)
+material_override = SubResource("StandardMaterial3D_o6xl0")
 size = Vector3(1, 1, 16)
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.631062, 8.35641)
+material_override = SubResource("StandardMaterial3D_tipki")
 size = Vector3(1, 1, 40)
 
 [node name="DebugPoint" type="MeshInstance3D" parent="."]

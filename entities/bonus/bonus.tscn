@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://drnmrkygk2jt"]
+[gd_scene load_steps=15 format=3 uid="uid://drnmrkygk2jt"]
 
 [ext_resource type="Script" uid="uid://c4pa317dctfd3" path="res://entities/bonus/bonus.gd" id="1_r8c8f"]
 [ext_resource type="ArrayMesh" uid="uid://k6ve05n21l7d" path="res://entities/bonus/meshs/pong-bonus_Acceleration.res" id="2_uy8r1"]
@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b17wp3wswqq18" path="res://entities/bonus/meshs/pong-bonus_Shrink.res" id="4_xfee8"]
 [ext_resource type="ArrayMesh" uid="uid://bqt50ewffiobb" path="res://entities/bonus/meshs/pong-bonus_Slow.res" id="5_5hqir"]
 [ext_resource type="ArrayMesh" uid="uid://bnx2bet6sy1x0" path="res://entities/bonus/meshs/pong-bonus_Shield.res" id="6_m38xi"]
+[ext_resource type="PackedScene" uid="uid://6bd7r3p1678s" path="res://entities/shadow/shadow.tscn" id="7_megt7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e1qnx"]
 size = Vector3(2, 1, 2)
@@ -15,7 +16,7 @@ radius = 1.25
 height = 2.5
 
 [sub_resource type="Gradient" id="Gradient_uy8r1"]
-offsets = PackedFloat32Array(0.0820669, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_megt7"]
 
@@ -25,7 +26,7 @@ noise = SubResource("FastNoiseLite_megt7")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5hqir"]
 transparency = 1
-albedo_color = Color(0.301361, 0.877864, 0.939867, 0.227451)
+albedo_color = Color(0.713726, 0.878431, 0.870588, 0.470588)
 albedo_texture = SubResource("NoiseTexture2D_xfee8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piybw"]
@@ -46,8 +47,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_e1qnx")
 
 [node name="CollisionSphere" type="MeshInstance3D" parent="."]
+layers = 2
 mesh = SubResource("SphereMesh_uy8r1")
 surface_material_override/0 = SubResource("StandardMaterial3D_5hqir")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_piybw")
+
+[node name="Shadow" parent="." instance=ExtResource("7_megt7")]

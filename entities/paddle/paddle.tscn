@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3fotr1gt6060"]
+[gd_scene load_steps=8 format=3 uid="uid://d3fotr1gt6060"]
 
 [ext_resource type="Script" uid="uid://4nvjve3vo2wp" path="res://entities/paddle/paddle.gd" id="1_0sbc1"]
 
@@ -7,7 +7,7 @@ resource_local_to_scene = true
 size = Vector3(0.25, 1, 3.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sbc1"]
-albedo_color = Color(0.987415, 0.569378, 0.384475, 1)
+albedo_color = Color(0.415686, 0.52549, 0.690196, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0sbc1"]
 resource_local_to_scene = true
@@ -15,6 +15,12 @@ size = Vector3(0.25, 1, 3.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_d472v"]
 size = Vector3(0.45, 1.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d472v"]
+albedo_color = Color(0.298039, 0.356863, 0.419608, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frr1j"]
+albedo_color = Color(0.298039, 0.356863, 0.419608, 1)
 
 [node name="Paddle" type="CharacterBody3D"]
 collision_layer = 3
@@ -32,8 +38,10 @@ shape = SubResource("BoxShape3D_0sbc1")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
 mesh = SubResource("BoxMesh_d472v")
+surface_material_override/0 = SubResource("StandardMaterial3D_d472v")
 
 [node name="PaddleBorderDecorationPos" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.75)
 mesh = SubResource("BoxMesh_d472v")
+surface_material_override/0 = SubResource("StandardMaterial3D_frr1j")
