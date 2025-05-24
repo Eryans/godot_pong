@@ -1,22 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://drnmrkygk2jt"]
+[gd_scene load_steps=14 format=3 uid="uid://drnmrkygk2jt"]
 
 [ext_resource type="Script" uid="uid://c4pa317dctfd3" path="res://entities/bonus/bonus.gd" id="1_r8c8f"]
+[ext_resource type="ArrayMesh" uid="uid://bknfxho6vmeol" path="res://entities/bonus/meshs/pong-bonus_Acceleration.res" id="2_uy8r1"]
+[ext_resource type="ArrayMesh" uid="uid://d1ueesyr0vywp" path="res://entities/bonus/meshs/pong-bonus_Grow.res" id="3_megt7"]
+[ext_resource type="ArrayMesh" uid="uid://dvx3ywcxajrc2" path="res://entities/bonus/meshs/pong-bonus_Shrink.res" id="4_xfee8"]
+[ext_resource type="ArrayMesh" uid="uid://ctn6eqwkaueyg" path="res://entities/bonus/meshs/pong-bonus_Slow.res" id="5_5hqir"]
+[ext_resource type="ArrayMesh" uid="uid://clbuj77ercakr" path="res://entities/bonus/meshs/pong-bonus_Shield.res" id="6_m38xi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e1qnx"]
 size = Vector3(2, 1, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3no7k"]
-albedo_color = Color(0.828299, 0.946543, 0, 1)
+[sub_resource type="SphereMesh" id="SphereMesh_uy8r1"]
+radius = 1.25
+height = 2.5
+
+[sub_resource type="Gradient" id="Gradient_uy8r1"]
+offsets = PackedFloat32Array(0.0820669, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_megt7"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xfee8"]
+color_ramp = SubResource("Gradient_uy8r1")
+noise = SubResource("FastNoiseLite_megt7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5hqir"]
+transparency = 1
+albedo_color = Color(0.301361, 0.877864, 0.939867, 0.227451)
+albedo_texture = SubResource("NoiseTexture2D_xfee8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piybw"]
-size = Vector3(2, 1, 2)
+size = Vector3(2, 5, 2)
 
 [node name="Bonus" type="Area3D" groups=["bonus"]]
 script = ExtResource("1_r8c8f")
+mesh_list = Dictionary[StringName, Mesh]({
+&"Acceleration": ExtResource("2_uy8r1"),
+&"Grow": ExtResource("3_megt7"),
+&"Shield": ExtResource("6_m38xi"),
+&"Shrink": ExtResource("4_xfee8"),
+&"Slow": ExtResource("5_5hqir")
+})
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
 mesh = SubResource("BoxMesh_e1qnx")
-surface_material_override/0 = SubResource("StandardMaterial3D_3no7k")
+
+[node name="CollisionSphere" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_uy8r1")
+surface_material_override/0 = SubResource("StandardMaterial3D_5hqir")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_piybw")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://caaf5w2sa0uvv"]
+[gd_scene load_steps=12 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/ai.gd" id="2_tefeu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://entities/score_zone/score_zone.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://b2676uqhqtvay" path="res://entities/bonus/shield/shields_manager.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://drnmrkygk2jt" path="res://entities/bonus/bonus.tscn" id="7_tipki"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_color = Color(0.264563, 0.387151, 0.473755, 1)
@@ -25,7 +26,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0)
-projection = 1
 size = 15.5
 
 [node name="Paddle" parent="." instance=ExtResource("1_tbgi4")]
@@ -41,6 +41,7 @@ player_paddle = NodePath("../Paddle")
 ai_paddle = NodePath("../Paddle2")
 ball = NodePath("../Ball")
 debug_mesh = NodePath("../DebugPoint")
+_ai_speed = 0.8
 ai_max_think_time = 1.25
 
 [node name="Ball" parent="." instance=ExtResource("3_o6xl0")]
@@ -97,3 +98,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
 process_mode = 3
 
 [node name="ShieldsManager" parent="." instance=ExtResource("7_o6xl0")]
+
+[node name="Bonus" parent="." instance=ExtResource("7_tipki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.53675, 0.616024, 4.85175)
