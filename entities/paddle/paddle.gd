@@ -51,9 +51,9 @@ func _handle_reactor() -> void:
 	var down_reactors: Array[Node] = _reactor_down.get_children();
 
 	for reactor: Reactor in up_reactors:
-		reactor.particles_amount_lerp_weight = 1 if (round(velocity.z) > 0) else 0
+		reactor.activated = (round(velocity.z) > 0)
 	for reactor: Reactor in down_reactors:
-		reactor.particles_amount_lerp_weight = 1 if (round(velocity.z) < 0) else 0
+		reactor.activated = (round(velocity.z) < 0)
 
 
 func _on_slow_debuff(p_tag: Enums.PlayerTagEnum) -> void:

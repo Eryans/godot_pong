@@ -52,7 +52,7 @@ script = ExtResource("1_cwr1o")
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.216344)
 amount = 120
-lifetime = 1.38
+lifetime = 1.25
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_8l56v")
 draw_passes = 2
