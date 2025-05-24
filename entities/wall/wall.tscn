@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=4 uid="uid://ddppp7nyghtqe"]
+
+[ext_resource type="Script" uid="uid://c7mrcgn15hg7n" path="res://entities/wall/wall.gd" id="1_ndby4"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ps7rj"]
+_surfaces = [{
+"aabb": AABB(-20, -0.5, -0.125, 40, 1, 0.25),
+"attribute_data": PackedByteArray("AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("AACgwQAAAL8AAAA+AACgwQAAAL8AAAC+AACgwQAAAD8AAAC+AACgQQAAAL8AAAC+AACgwQAAAL8AAAC+AACgwQAAAL8AAAA+AACgwQAAAD8AAAC+AACgwQAAAL8AAAC+AACgQQAAAL8AAAC+AACgwQAAAD8AAAC+AACgwQAAAD8AAAA+AACgwQAAAL8AAAA+AACgwQAAAL8AAAA+AACgwQAAAD8AAAA+AACgQQAAAD8AAAA+AACgQQAAAD8AAAA+AACgwQAAAD8AAAA+AACgwQAAAD8AAAC+AACgwQAAAL8AAAA+AACgQQAAAL8AAAA+AACgQQAAAL8AAAC+AACgQQAAAD8AAAA+AACgQQAAAL8AAAA+AACgwQAAAL8AAAA+AACgQQAAAL8AAAC+AACgQQAAAL8AAAA+AACgQQAAAD8AAAA+AACgQQAAAL8AAAC+AACgQQAAAD8AAAC+AACgwQAAAD8AAAC+AACgwQAAAD8AAAC+AACgQQAAAD8AAAC+AACgQQAAAD8AAAA+AACgQQAAAD8AAAA+AACgQQAAAD8AAAC+AACgQQAAAL8AAAC+AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3//////AAD/f/////8AAP9//////wAA////f/9//n////9//3/+f////3//f/5/")
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ndby4"]
+size = Vector3(50, 1, 12.611)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ps7rj"]
+size = Vector3(50, 1, 1.49581)
+
+[node name="Wall" type="Area3D" groups=["wall"]]
+script = ExtResource("1_ndby4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_ps7rj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.19446)
+shape = SubResource("BoxShape3D_ndby4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.636864)
+shape = SubResource("BoxShape3D_ps7rj")

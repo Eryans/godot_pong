@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://drnmrkygk2jt"]
 
 [ext_resource type="Script" uid="uid://c4pa317dctfd3" path="res://entities/bonus/bonus.gd" id="1_r8c8f"]
-[ext_resource type="ArrayMesh" uid="uid://bknfxho6vmeol" path="res://entities/bonus/meshs/pong-bonus_Acceleration.res" id="2_uy8r1"]
-[ext_resource type="ArrayMesh" uid="uid://d1ueesyr0vywp" path="res://entities/bonus/meshs/pong-bonus_Grow.res" id="3_megt7"]
-[ext_resource type="ArrayMesh" uid="uid://dvx3ywcxajrc2" path="res://entities/bonus/meshs/pong-bonus_Shrink.res" id="4_xfee8"]
-[ext_resource type="ArrayMesh" uid="uid://ctn6eqwkaueyg" path="res://entities/bonus/meshs/pong-bonus_Slow.res" id="5_5hqir"]
-[ext_resource type="ArrayMesh" uid="uid://clbuj77ercakr" path="res://entities/bonus/meshs/pong-bonus_Shield.res" id="6_m38xi"]
+[ext_resource type="ArrayMesh" uid="uid://k6ve05n21l7d" path="res://entities/bonus/meshs/pong-bonus_Acceleration.res" id="2_uy8r1"]
+[ext_resource type="ArrayMesh" uid="uid://dmv16crxvd6v6" path="res://entities/bonus/meshs/pong-bonus_Grow.res" id="3_megt7"]
+[ext_resource type="ArrayMesh" uid="uid://b17wp3wswqq18" path="res://entities/bonus/meshs/pong-bonus_Shrink.res" id="4_xfee8"]
+[ext_resource type="ArrayMesh" uid="uid://bqt50ewffiobb" path="res://entities/bonus/meshs/pong-bonus_Slow.res" id="5_5hqir"]
+[ext_resource type="ArrayMesh" uid="uid://bnx2bet6sy1x0" path="res://entities/bonus/meshs/pong-bonus_Shield.res" id="6_m38xi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e1qnx"]
 size = Vector3(2, 1, 2)
@@ -42,7 +42,7 @@ mesh_list = Dictionary[StringName, Mesh]({
 })
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_e1qnx")
 
 [node name="CollisionSphere" type="MeshInstance3D" parent="."]
