@@ -33,6 +33,7 @@ func spawn() -> void:
 	var new_bonus: Bonus = bonus_scene.instantiate();
 	get_tree().current_scene.add_child(new_bonus);
 	new_bonus.bonus_type = randi_range(0, BonusTypeEnum.size() - 1) as BonusTypeEnum
+	new_bonus.set_mesh_from_current_type();
 	new_bonus.global_position = Vector3(rng.randf_range(-7, 7), 0, rng.randf_range(-7, 7));
 
 func _on_bonus_hit(bonus: Bonus, _paddle_who_hit: Enums.PlayerTagEnum) -> void:
