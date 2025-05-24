@@ -6,6 +6,8 @@ extends CharacterBody3D
 @onready var _paddle_collider: CollisionShape3D = $CollisionShape3D
 @onready var _paddle_border_decoration_neg = %PaddleBorderDecorationNeg
 @onready var _paddle_border_decoration_pos = %PaddleBorderDecorationPos
+@onready var _reactor_up: Node = %ReactorUp
+@onready var _reactor_down: Node = %ReactorDown
 @onready var _slow_timer: Timer = Timer.new()
 @onready var _shrink_timer: Timer = Timer.new()
 @onready var _grow_timer: Timer = Timer.new()
@@ -41,7 +43,18 @@ func _physics_process(_delta: float) -> void:
 	_paddle_border_decoration_pos.position.z = get_width() / 2 - paddle_decoration_half_width
 	velocity.z += direction * speed;
 	velocity.z *= friction;
+	_handle_reactor();
 	move_and_slide();
+
+func _handle_reactor() -> void:
+	var up_reactors: Array[Node] = _reactor_up.get_children();
+	var down_reactors: Array[Node] = _reactor_down.get_children();
+
+	for reactor: Reactor in up_reactors:
+		reactor.particles_amount_lerp_weight = 1 if (round(velocity.z) > 0) else 0
+	for reactor: Reactor in down_reactors:
+		reactor.particles_amount_lerp_weight = 1 if (round(velocity.z) < 0) else 0
+
 
 func _on_slow_debuff(p_tag: Enums.PlayerTagEnum) -> void:
 	if (tag == p_tag):

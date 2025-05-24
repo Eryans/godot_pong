@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3fotr1gt6060"]
+[gd_scene load_steps=9 format=3 uid="uid://d3fotr1gt6060"]
 
 [ext_resource type="Script" uid="uid://4nvjve3vo2wp" path="res://entities/paddle/paddle.gd" id="1_0sbc1"]
+[ext_resource type="Material" uid="uid://cu1gqemjte4qo" path="res://assets/materials/grey_dark.tres" id="2_8l56v"]
+[ext_resource type="PackedScene" uid="uid://cbntagyipow75" path="res://entities/decorations/reactor/reactor.tscn" id="3_akf0g"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
 resource_local_to_scene = true
@@ -15,9 +17,6 @@ size = Vector3(0.25, 1, 3.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_d472v"]
 size = Vector3(0.45, 1.25, 0.25)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d472v"]
-albedo_color = Color(0.298039, 0.356863, 0.419608, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frr1j"]
 albedo_color = Color(0.298039, 0.356863, 0.419608, 1)
@@ -38,10 +37,30 @@ shape = SubResource("BoxShape3D_0sbc1")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
 mesh = SubResource("BoxMesh_d472v")
-surface_material_override/0 = SubResource("StandardMaterial3D_d472v")
+surface_material_override/0 = ExtResource("2_8l56v")
+
+[node name="ReactorUp" type="Node3D" parent="PaddleBorderDecorationNeg"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.75)
+
+[node name="Reactor" parent="PaddleBorderDecorationNeg/ReactorUp" instance=ExtResource("3_akf0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.240713, -1.75619)
+
+[node name="Reactor2" parent="PaddleBorderDecorationNeg/ReactorUp" instance=ExtResource("3_akf0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16915, -1.75619)
 
 [node name="PaddleBorderDecorationPos" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.75)
 mesh = SubResource("BoxMesh_d472v")
 surface_material_override/0 = SubResource("StandardMaterial3D_frr1j")
+
+[node name="ReactorDown" type="Node3D" parent="PaddleBorderDecorationPos"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
+
+[node name="Reactor3" parent="PaddleBorderDecorationPos/ReactorDown" instance=ExtResource("3_akf0g")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.240713, 1.757)
+
+[node name="Reactor4" parent="PaddleBorderDecorationPos/ReactorDown" instance=ExtResource("3_akf0g")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.16915, 1.757)
