@@ -1,6 +1,156 @@
-[gd_scene load_steps=2 format=3 uid="uid://isg2si6p6ka1"]
+[gd_scene load_steps=16 format=3 uid="uid://isg2si6p6ka1"]
 
 [ext_resource type="Script" uid="uid://ixop01xavsf6" path="res://entities/score_zone/score_zone.gd" id="1_k42b3"]
+[ext_resource type="Texture2D" uid="uid://xbj2tqnl0jjm" path="res://assets/textures/smoke1.png" id="2_g6wa8"]
+
+[sub_resource type="Animation" id="Animation_edqo7"]
+resource_name = "goal_explosion"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fiw7q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bs0y1"]
+_data = {
+&"RESET": SubResource("Animation_fiw7q"),
+&"goal_explosion": SubResource("Animation_edqo7")
+}
+
+[sub_resource type="Curve" id="Curve_e7xft"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.346667, 0.752809), 1.04768, 1.04768, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8rrqb"]
+curve = SubResource("Curve_e7xft")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v3uoy"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+flatness = 1.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -10, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_8rrqb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sx7h7"]
+transparency = 1
+specular_mode = 2
+albedo_texture = ExtResource("2_g6wa8")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qq0sg"]
+material = SubResource("StandardMaterial3D_sx7h7")
+
+[sub_resource type="Curve" id="Curve_aw8hx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.513333, 0.696629), -1.21505, -1.21505, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2texu"]
+curve = SubResource("Curve_aw8hx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4i78g"]
+direction = Vector3(0, 20, 0)
+spread = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 63.33
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_2texu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plher"]
+emission_enabled = true
+emission = Color(1, 1, 0.588235, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_dj0uv"]
+material = SubResource("StandardMaterial3D_plher")
 
 [node name="ScoreZone" type="Area3D"]
 script = ExtResource("1_k42b3")
+
+[node name="GoalExplosion" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GoalExplosion"]
+reset_on_save = false
+libraries = {
+&"": SubResource("AnimationLibrary_bs0y1")
+}
+playback_auto_capture = false
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="GoalExplosion"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 25
+lifetime = 2.0
+one_shot = true
+preprocess = 0.56
+explosiveness = 1.0
+randomness = 0.5
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_v3uoy")
+draw_pass_1 = SubResource("QuadMesh_qq0sg")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="GoalExplosion"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 25
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_4i78g")
+draw_pass_1 = SubResource("SphereMesh_dj0uv")

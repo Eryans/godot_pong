@@ -17,7 +17,6 @@ func _on_bonus_hit(_b, _c) -> void:
 func _on_ball_hit_wall() -> void:
     hit_wall_sfx.play();
     hit_wall_sfx.pitch_scale = _get_random_pitch()
-    pass
 
 func _on_goal(_arg) -> void:
     goal_sfx.play();

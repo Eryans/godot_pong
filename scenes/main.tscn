@@ -131,7 +131,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 0)
 shape = SubResource("BoxShape3D_lquwl")
 
 [node name="ScoreZone2" parent="." instance=ExtResource("4_tipki")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 15, 0, 0)
 player_goal = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreZone2"]
