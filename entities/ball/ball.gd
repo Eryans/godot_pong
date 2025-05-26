@@ -8,6 +8,8 @@ extends Area3D
 @onready var speed: float = 0;
 @onready var _acceleration_bonus_timer: Timer = Timer.new()
 
+@onready var hit_paddle_sfx: AudioStreamPlayer = %HitPaddle
+
 var current_speed_save: float;
 var direction: Vector2 = Vector2.LEFT;
 var rdm: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -31,13 +33,15 @@ func _physics_process(delta: float) -> void:
 func on_area_entered(area: Area3D) -> void:
 	if (area.is_in_group("wall")):
 		direction.y = - direction.y;
+		EventManager.ball_hitted_wall_emit();
 
 func on_body_entered(body: Node3D) -> void:
 	if (speed < _maximum_speed):
 		speed += bounce_speed_increase;
 	if (body is StaticBody3D):
-		direction.x = - direction.x
+		direction.x = - direction.x;
 	if (body is Paddle):
+		hit_paddle_sfx.play();
 		var paddle: Paddle = body
 		last_hitted_paddle = paddle.tag;
 		var max_angle = deg_to_rad(75);

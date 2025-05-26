@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw76l1wbchdl1"]
+[gd_scene load_steps=6 format=3 uid="uid://bw76l1wbchdl1"]
 
 [ext_resource type="Script" uid="uid://bjfuw08cqg0ik" path="res://entities/ball/ball.gd" id="1_x8fbi"]
 [ext_resource type="PackedScene" uid="uid://6bd7r3p1678s" path="res://entities/shadow/shadow.tscn" id="2_jyt08"]
+[ext_resource type="AudioStream" uid="uid://doydppenh1ax" path="res://assets/sounds/hit.mp3" id="3_w5wpn"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_lquwl"]
 radius = 0.25
@@ -21,3 +22,8 @@ shape = SubResource("SphereShape3D_x8fbi")
 
 [node name="Shadow" parent="." instance=ExtResource("2_jyt08")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="HitPaddle" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_w5wpn")
+pitch_scale = 1.2

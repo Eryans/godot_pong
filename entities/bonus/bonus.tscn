@@ -43,7 +43,6 @@ mesh_list = Dictionary[StringName, Mesh]({
 })
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_e1qnx")
 
 [node name="CollisionSphere" type="MeshInstance3D" parent="."]

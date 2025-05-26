@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://caaf5w2sa0uvv"]
+[gd_scene load_steps=18 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/ai.gd" id="2_tefeu"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://entities/score_zone/score_zone.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://b2676uqhqtvay" path="res://entities/bonus/shield/shields_manager.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://bhld8drrk4gmu" path="res://entities/SoundManager/sound_manager.tscn" id="7_tipki"]
 
 [sub_resource type="Environment" id="Environment_o6xl0"]
 background_mode = 1
@@ -14,7 +15,6 @@ background_color = Color(0.462745, 0.337255, 0.560784, 1)
 reflected_light_source = 1
 tonemap_mode = 3
 ssr_fade_in = 0.0477962
-ssao_power = 1.5
 ssao_sharpness = 0.75
 glow_intensity = 1.58
 adjustment_enabled = true
@@ -154,5 +154,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_lquwl")
 
 [node name="UI" parent="." instance=ExtResource("5_85g3d")]
 process_mode = 3
+
+[node name="SoundManager" parent="." instance=ExtResource("7_tipki")]
 
 [node name="ShieldsManager" parent="." instance=ExtResource("7_o6xl0")]

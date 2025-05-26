@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhld8drrk4gmu"]
+
+[ext_resource type="Script" uid="uid://dp1lsdxf8efad" path="res://entities/SoundManager/sound_manager.gd" id="1_o8ttm"]
+[ext_resource type="AudioStream" uid="uid://gk1qm5ula1oe" path="res://assets/sounds/bonus .mp3" id="2_exq03"]
+[ext_resource type="AudioStream" uid="uid://doydppenh1ax" path="res://assets/sounds/hit.mp3" id="3_exq03"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_o8ttm")
+
+[node name="HitBonus" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_exq03")
+
+[node name="HitWall" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_exq03")
+volume_db = -5.0

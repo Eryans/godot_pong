@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://gk1qm5ula1oe"
+path="res://.godot/imported/bonus .mp3-9801cc573a94f63a7d50742bce2b8018.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/bonus .mp3"
+dest_files=["res://.godot/imported/bonus .mp3-9801cc573a94f63a7d50742bce2b8018.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
