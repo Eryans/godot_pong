@@ -1,23 +1,13 @@
 [gd_scene load_steps=17 format=3 uid="uid://caaf5w2sa0uvv"]
 
 [ext_resource type="PackedScene" uid="uid://d3fotr1gt6060" path="res://entities/paddle/paddle.tscn" id="1_tbgi4"]
+[ext_resource type="Environment" uid="uid://l6gmenvqabp4" path="res://assets/environnement.tres" id="1_tipki"]
 [ext_resource type="Script" uid="uid://c4hv7l3y1nvr6" path="res://main_scripts/ai.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bw76l1wbchdl1" path="res://entities/ball/ball.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://ddppp7nyghtqe" path="res://entities/wall/wall.tscn" id="4_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://isg2si6p6ka1" path="res://entities/score_zone/score_zone.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://cxnqnwddgcwbs" path="res://ui/ui.tscn" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://b2676uqhqtvay" path="res://entities/bonus/shield/shields_manager.tscn" id="7_o6xl0"]
-
-[sub_resource type="Environment" id="Environment_o6xl0"]
-background_mode = 1
-background_color = Color(0.462745, 0.337255, 0.560784, 1)
-reflected_light_source = 1
-tonemap_mode = 3
-ssr_fade_in = 0.0477962
-ssao_sharpness = 0.75
-glow_intensity = 1.58
-adjustment_enabled = true
-adjustment_saturation = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
 albedo_color = Color(0.721569, 0.615686, 0.431373, 1)
@@ -54,7 +44,7 @@ shadow_caster_mask = 4294966273
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 10)
-environment = SubResource("Environment_o6xl0")
+environment = ExtResource("1_tipki")
 v_offset = 4.5
 projection = 1
 size = 16.5

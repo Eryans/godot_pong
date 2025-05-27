@@ -28,12 +28,10 @@ func _two_players_button_pressed() -> void:
     get_tree().change_scene_to_packed(main_scene)
 
 func _quit_button_pressed() -> void:
-    pass
-
+    get_tree().quit();
+    
 func _on_button_hover() -> void:
     EventManager.button_hover_emit()
-    pass
 
 func _on_button_click() -> void:
     EventManager.button_click_emit()
-    pass

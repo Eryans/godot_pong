@@ -1,38 +1,214 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4jxy2evbl82u"]
+[gd_scene load_steps=18 format=3 uid="uid://d4jxy2evbl82u"]
 
-[ext_resource type="Script" uid="uid://b3n7d4hk3jm67" path="res://main_scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="PackedScene" uid="uid://5wyjfjo3gy30" path="res://ui/menu.tscn" id="1_vjb58"]
+[ext_resource type="Material" uid="uid://cu1gqemjte4qo" path="res://assets/materials/grey_dark.tres" id="2_con2f"]
+[ext_resource type="Environment" uid="uid://l6gmenvqabp4" path="res://assets/environnement.tres" id="2_mhnvy"]
 
-[node name="Menu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_yqeox")
+[sub_resource type="SphereMesh" id="SphereMesh_mhnvy"]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_top = 273.5
-offset_right = 149.0
-offset_bottom = 374.5
-size_flags_vertical = 3
-theme_override_constants/margin_left = 100
+[sub_resource type="BoxMesh" id="BoxMesh_4ytvr"]
+resource_local_to_scene = true
+size = Vector3(0.25, 1, 3.5)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sbc1"]
+albedo_color = Color(0.415686, 0.52549, 0.690196, 1)
 
-[node name="OnePlayerMode" type="Button" parent="MarginContainer/VBoxContainer"]
+[sub_resource type="BoxMesh" id="BoxMesh_d472v"]
+size = Vector3(0.45, 1.25, 0.25)
+
+[sub_resource type="Curve" id="Curve_cwr1o"]
+_data = [Vector2(0.24, 0.52809), 0.0, -0.459652, 0, 0, Vector2(1, 0.0898877), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_frr1j"]
+curve = SubResource("Curve_cwr1o")
+
+[sub_resource type="Curve" id="Curve_hl3ld"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.47191), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cwr1o"]
+curve = SubResource("Curve_hl3ld")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8l56v"]
+gravity = Vector3(0, -3.5, 0)
+attractor_interaction_enabled = false
+scale_curve = SubResource("CurveTexture_frr1j")
+scale_over_velocity_max = 3.0
+scale_over_velocity_curve = SubResource("CurveTexture_cwr1o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_akf0g"]
+transparency = 1
+albedo_color = Color(0.760203, 2.55093e-06, 4.81307e-07, 0.054902)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wxl44"]
+material = SubResource("StandardMaterial3D_akf0g")
+height = 1.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p851o"]
+transparency = 1
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 5.35
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uj2sr"]
+material = SubResource("StandardMaterial3D_p851o")
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frr1j"]
+albedo_color = Color(0.298039, 0.356863, 0.419608, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Menu" parent="." instance=ExtResource("1_vjb58")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+environment = ExtResource("2_mhnvy")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.665986, -0.336043, -0.665986, 0.410145, 0.910683, -0.0493675, 0.623092, -0.240273, 0.744329, 2.03999, 1.2341, -2.82581)
+mesh = SubResource("SphereMesh_mhnvy")
+skeleton = NodePath("")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="PaddleDecoration" type="Node3D" parent="."]
+transform = Transform3D(0.628594, -0.467414, -0.621606, 0.4855, 0.860226, -0.155886, 0.607585, -0.2038, 0.767663, -1.42857, 0, -2.48068)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PaddleDecoration"]
+transform = Transform3D(1, 0, -2.98023e-08, 3.72529e-08, 1, 0, -2.98023e-08, -1.49012e-08, 1, 1.34531, -1.00036, -1.33035)
+mesh = SubResource("BoxMesh_4ytvr")
+surface_material_override/0 = SubResource("StandardMaterial3D_0sbc1")
+
+[node name="PaddleBorderDecorationNeg" type="MeshInstance3D" parent="PaddleDecoration"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "One player mode"
+transform = Transform3D(1, 0, -2.98023e-08, 3.72529e-08, 1, 0, -2.98023e-08, -1.49012e-08, 1, 1.34531, -1.00036, -3.08035)
+mesh = SubResource("BoxMesh_d472v")
+surface_material_override/0 = ExtResource("2_con2f")
 
-[node name="TwoPlayersMode" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ReactorUp" type="Node3D" parent="PaddleDecoration/PaddleBorderDecorationNeg"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "Two players mode"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.75)
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Reactor" type="Node3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.240713, -1.75619)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.216344)
+amount = 120
+lifetime = 1.25
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8l56v")
+draw_passes = 2
+draw_pass_1 = SubResource("CapsuleMesh_wxl44")
+draw_pass_2 = SubResource("CapsuleMesh_uj2sr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+radius = 0.181641
+height = 0.333984
+material = ExtResource("2_con2f")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+operation = 2
+radius = 0.135742
+height = 0.378906
+
+[node name="Reactor2" type="Node3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16915, -1.75619)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.216344)
+amount = 120
+lifetime = 1.25
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8l56v")
+draw_passes = 2
+draw_pass_1 = SubResource("CapsuleMesh_wxl44")
+draw_pass_2 = SubResource("CapsuleMesh_uj2sr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor2"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor2/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+radius = 0.181641
+height = 0.333984
+material = ExtResource("2_con2f")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationNeg/ReactorUp/Reactor2/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+operation = 2
+radius = 0.135742
+height = 0.378906
+
+[node name="PaddleBorderDecorationPos" type="MeshInstance3D" parent="PaddleDecoration"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "Quit"
+transform = Transform3D(1, 0, -2.98023e-08, 3.72529e-08, 1, 0, -2.98023e-08, -1.49012e-08, 1, 1.34531, -1.00036, 0.419646)
+mesh = SubResource("BoxMesh_d472v")
+surface_material_override/0 = SubResource("StandardMaterial3D_frr1j")
+
+[node name="ReactorDown" type="Node3D" parent="PaddleDecoration/PaddleBorderDecorationPos"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
+
+[node name="Reactor3" type="Node3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.240713, 1.757)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.216344)
+amount = 120
+lifetime = 1.25
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8l56v")
+draw_passes = 2
+draw_pass_1 = SubResource("CapsuleMesh_wxl44")
+draw_pass_2 = SubResource("CapsuleMesh_uj2sr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor3"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor3/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+radius = 0.181641
+height = 0.333984
+material = ExtResource("2_con2f")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor3/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+operation = 2
+radius = 0.135742
+height = 0.378906
+
+[node name="Reactor4" type="Node3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.16915, 1.757)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.216344)
+amount = 120
+lifetime = 1.25
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_8l56v")
+draw_passes = 2
+draw_pass_1 = SubResource("CapsuleMesh_wxl44")
+draw_pass_2 = SubResource("CapsuleMesh_uj2sr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor4"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor4/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+radius = 0.181641
+height = 0.333984
+material = ExtResource("2_con2f")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="PaddleDecoration/PaddleBorderDecorationPos/ReactorDown/Reactor4/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+operation = 2
+radius = 0.135742
+height = 0.378906
