@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="proto"
-run/main_scene="res://scenes/main.tscn"
+config/name="Super Pong"
+run/main_scene="uid://d4jxy2evbl82u"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ GameManager="*res://main_scripts/game_manager.gd"
 EventManager="*res://main_scripts/event_manager.gd"
 GameGlobal="*res://main_scripts/game_global.gd"
 BonusManager="*res://main_scripts/bonus_manager.gd"
+SoundManager="*res://entities/SoundManager/sound_manager.tscn"
 
 [input]
 

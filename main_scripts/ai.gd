@@ -5,7 +5,6 @@ extends Node
 @export var ai_paddle: Paddle;
 @export var ball: Ball;
 @export var debug_mesh: MeshInstance3D
-@export var is_two_player_mode: bool = false
 @export var _ai_precision_margin: float = .1
 @export_range(.1, 1) var _ai_speed: float = .9;
 @export_range(.1, 4) var ai_max_think_time: float = .75;
@@ -28,7 +27,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	#TODO : Refactor this bit to have a better separation of responsability
 	player_paddle.direction = Input.get_axis("up", "down")
-	if (is_two_player_mode):
+	if (GameGlobal.is_two_player_mode):
 		ai_paddle.direction = Input.get_axis("ui_up", "ui_down")
 	else:
 		_ai_behavior()

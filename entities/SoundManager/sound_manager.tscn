@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhld8drrk4gmu"]
+[gd_scene load_steps=7 format=3 uid="uid://bhld8drrk4gmu"]
 
 [ext_resource type="Script" uid="uid://dp1lsdxf8efad" path="res://entities/SoundManager/sound_manager.gd" id="1_o8ttm"]
 [ext_resource type="AudioStream" uid="uid://gk1qm5ula1oe" path="res://assets/sounds/bonus .mp3" id="2_exq03"]
 [ext_resource type="AudioStream" uid="uid://doydppenh1ax" path="res://assets/sounds/hit.mp3" id="3_exq03"]
 [ext_resource type="AudioStream" uid="uid://ddrffsj85yfs7" path="res://assets/sounds/goal.mp3" id="4_o84ni"]
+[ext_resource type="AudioStream" uid="uid://eoat087ne8dp" path="res://assets/sounds/ui_hover.mp3" id="5_1qkqs"]
+[ext_resource type="AudioStream" uid="uid://m52mcyuisb3v" path="res://assets/sounds/click.mp3" id="6_kujgj"]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_o8ttm")
@@ -21,3 +23,11 @@ volume_db = -5.0
 unique_name_in_owner = true
 stream = ExtResource("4_o84ni")
 volume_db = -5.0
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_1qkqs")
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_kujgj")
